@@ -1,0 +1,44 @@
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #333; /* Dark background */
+            color: #fff; /* White text color */
+            text-align: center;
+            padding-top: 50px;
+        }
+        h1 {
+            color: #ffa500; /* Orange color for the heading */
+        }
+        form {
+            margin: 20px auto;
+            background-color: #444; /* Slightly lighter background for the form */
+            padding: 20px;
+            border-radius: 8px;
+            display: inline-block;
+        }
+        input[type="file"] {
+            color: #fff;
+        }
+        button {
+            background-color: #ffa500; /* Orange background for the button */
+            color: #fff; /* White text color for the button */
+            border: none;
+            padding: 10px 20px;
+            margin-top: 10px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+        button:hover {
+            background-color: #e69500; /* Darker orange on hover */
+        }
+        #downloadLinkContainer {
+            margin-top: 20px;
+        }
+        a {
+            color: #ffa500; /* Orange color for the link */
+            text-decoration: none;
+            font-weight: bold;
+        }
+        a:hover {
+            text-decoration: underline;
+        }

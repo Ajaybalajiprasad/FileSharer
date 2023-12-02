@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>File Sharing App</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <h1>File Sharing App</h1>
+    <form id="uploadForm" action="/upload" method="post" enctype="multipart/form-data">
+        <input type="file" name="file" required >
+        <button type="submit">Upload File</button>
+    </form>
+    <div id="downloadLinkContainer"></div>
+
+    <script>
+        document.getElementById('uploadForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+            const formData = new FormData(this);
+            fetch('/upload', {
+                method: 'POST',
+                body: formData
+            })
+            .then(response => {
+                const contentType = response.headers.get('content-type');
+                if (!response.ok) {
+                    if (contentType && contentType.includes('application/json')) {
+                        // If the response is JSON, parse it to get the error message
+                        return response.json().then(errData => {
+                            throw new Error(errData.message || 'Network response was not ok');
+                        });
+                    } else {
+                        // If the response is not JSON, throw a generic error
+                        throw new Error('Network response was not ok and not JSON');
+                    }
+                }
+                // If the response is ok, parse it as JSON
+                return response.json();
+            })
+            .then(data => {
+                if (data.success) {
+                    // Use the pin instead of fileId to create the download link
+                    const downloadLink = `http://localhost:3000/download/${data.pin}`;
+                    const linkContainer = document.getElementById('downloadLinkContainer');
+                    linkContainer.innerHTML = `In You Browser Type Along With Domain as : /download/<a href="${downloadLink}" target="_blank">${data.pin}</a>`;
+                } else {
+                    alert('File upload failed.');
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                alert(error.message || 'An error occurred while uploading the file.');
+            });
+        });
+    </script>
+</body>
+</html>
