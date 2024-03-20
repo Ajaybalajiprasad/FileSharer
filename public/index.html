@@ -15,6 +15,7 @@
     <div id="downloadLinkContainer"></div>
 
     <script>
+        const Download_URL = window.location.href;
         document.getElementById('uploadForm').addEventListener('submit', function(event) {
             event.preventDefault();
             const formData = new FormData(this);
@@ -41,7 +42,7 @@
             .then(data => {
                 if (data.success) {
                     // Use the pin instead of fileId to create the download link
-                    const downloadLink = `http://localhost:3000/download/${data.pin}`;
+                    const downloadLink = Download_URL+ 'download/' + data.pin;
                     const linkContainer = document.getElementById('downloadLinkContainer');
                     linkContainer.innerHTML = `In You Browser Type Along With Domain as : /download/<a href="${downloadLink}" target="_blank">${data.pin}</a>`;
                 } else {
