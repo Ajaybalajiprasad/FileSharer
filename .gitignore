@@ -1,2 +1,5 @@
-/node_modules
-/uploads
+# Ignore node_modules directory
+node_modules/
+
+# Ignore uploads directory
+uploads/
