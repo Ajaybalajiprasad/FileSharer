@@ -28,7 +28,7 @@ const db = new sqlite3.Database('NewfileMappings.db', (err) => {
 
 // Function to generate a unique pin
 function generatePin() {
-    return Math.floor(100 + Math.random() * 900).toString();
+    return Math.floor(100 + Math.random() * 9000).toString();
 }
 
 // Configure multer for file storage

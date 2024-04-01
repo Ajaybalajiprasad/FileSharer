@@ -60,10 +60,11 @@
             });
         });
 
-        document.getElementById('downloadBtn').addEventListener('click', function() {
+        // Add event listener for clicking the "Download" button
+        document.getElementById('downloadBtn').addEventListener('click', function(event) {
+            event.preventDefault();
             initiateDownload();
         });
-        
         // Add event listener for pressing the "Enter" key
         document.getElementById('pinInput').addEventListener('keydown', function(event) {
             if (event.key === 'Enter') {
