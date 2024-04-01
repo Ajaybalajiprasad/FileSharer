@@ -42,9 +42,9 @@
             .then(data => {
                 if (data.success) {
                     // Use the pin instead of fileId to create the download link
-                    const downloadLink = Download_URL+ 'download/' + data.pin;
+                    const downloadLink = Download_URL + data.pin;
                     const linkContainer = document.getElementById('downloadLinkContainer');
-                    linkContainer.innerHTML = `In You Browser Type Along With Domain as : /download/<a href="${downloadLink}" target="_blank">${data.pin}</a>`;
+                    linkContainer.innerHTML = `In You Browser Type Along With Domain as : /<a href="${downloadLink}" target="_blank">${data.pin}</a>`;
                 } else {
                     alert('File upload failed.');
                 }

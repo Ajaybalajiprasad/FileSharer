@@ -61,7 +61,7 @@ app.post('/upload', upload.single('file'), (req, res) => {
         if (err) {
             return res.status(500).json({ success: false, message: 'Database error occurred.' });
         }
-        // Send the pin back to the client
+    
         res.json({ success: true, pin: pin });
     });
 });
@@ -80,7 +80,7 @@ function getFilePathFromPin(pin, callback) {
 }
 
 // Endpoint to download a file using a pin
-app.get('/download/:pin', (req, res) => {
+app.get('/:pin', (req, res) => {
     const pin = req.params.pin;
     getFilePathFromPin(pin, function(err, filePath) {
         if (err) {
