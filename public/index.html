@@ -14,6 +14,11 @@
     </form>
     <div id="downloadLinkContainer"></div>
 
+    <form id="downloadForm">
+        <input type="text" id="pinInput" placeholder="Enter pin" required>
+        <button type="submit" id="downloadBtn">Download File</button>
+    </form>
+
     <script>
         const Download_URL = window.location.href;
         document.getElementById('uploadForm').addEventListener('submit', function(event) {
@@ -54,6 +59,28 @@
                 alert(error.message || 'An error occurred while uploading the file.');
             });
         });
+
+        document.getElementById('downloadBtn').addEventListener('click', function() {
+            initiateDownload();
+        });
+        
+        // Add event listener for pressing the "Enter" key
+        document.getElementById('pinInput').addEventListener('keydown', function(event) {
+            if (event.key === 'Enter') {
+                event.preventDefault();
+                initiateDownload();
+            }
+        });
+        
+        // Function to initiate the download action
+        function initiateDownload() {
+            const pin = document.getElementById('pinInput').value;
+            if (!pin) {
+                alert('Please enter a pin.');
+                return;
+            }
+            window.location.href = '/' + pin; // Adjusted to work with relative URL
+        }
     </script>
 </body>
 </html>
