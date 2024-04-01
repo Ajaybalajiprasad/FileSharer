@@ -1,0 +1,115 @@
+i) cat: The cat command is used to concatenate and display the contents of files.
+Syntax:
+cat [options] [file(s)]
+Example execution:
+cat file1.txt file2.txt
+
+ii) mkdir: The mkdir command is used to create directories. 
+Syntax:
+mkdir [options] directory_name
+Example execution:
+mkdir new_directory
+
+i) fork: The fork system call is used to create a new process (child process) that is an exact copy of the calling process (parent process). After a successful fork, two processes are running concurrently, with the child process having its own address space but sharing certain resources with the parent process.
+Syntax:
+fork
+Example execution (in a C program):
+pid_t pid = fork();
+
+ii) exec: The exec family of system calls (such as execve, execl, execv, etc.) are used to replace the current process image with a new process image. These calls are typically used after a fork to load and execute a new program in the child process.
+Syntax:
+exec [options] command [arguments]
+Example execution (in a C program):
+execl("/bin/ls", "ls", "-l", NULL);
+
+i) pwd: The pwd command is used to print the current working directory.
+Syntax:
+pwd
+Example execution:
+pwd
+
+ii) cd: The cd command is used to change the current working directory. 
+Syntax:
+cd [directory_path]
+Example execution:
+cd /home/user/documents
+
+i) rmdir: The rmdir command is used to remove directories. 
+Syntax:
+rmdir [options] directory_name
+Example execution:
+rmdir directory_to_remove
+
+ii) clear: The clear command is used to clear the terminal screen. 
+Syntax:
+clear
+Example execution:
+clear
+
+i) opendir: This is not a standalone command in UNIX. opendir is a C library function used to open a directory stream.
+
+ii) readdir: This is not a standalone command in UNIX. readdir is a C library function used to read the next entry from a directory stream.
+
+i) ls: The ls command is used to list files and directories in a directory.
+Syntax:
+ls [options] [directory_path]
+Example execution:
+ls -l /path/to/directory
+
+ii) cp (copy): The cp command is used to copy files or directories.
+Syntax:
+cp [options] source destination
+Example execution:
+cp file1.txt file2.txt
+
+i) wait: The wait command in UNIX is used to wait for the termination of a child process. It is typically used in shell scripting. Syntax:
+wait [pid]
+Example execution:
+wait 1234
+
+ii) exit: The exit command is used to exit a shell or terminate a script.
+Syntax:
+exit [status]
+Example execution:
+exit 0
+
+i) mv (move): The mv command is used to move or rename files and directories.
+Syntax:
+mv [options] source destination
+Example execution:
+mv file1.txt /path/to/destination/
+
+ii) who: The who command is used to display information about currently logged-in users. Syntax:
+who [options]
+Example execution:
+who
+
+i) who am i: The who am i command is used to display information about the current user. Syntax:
+who am i
+Example execution:
+who am i
+
+ii) man: The man command is used to display the manual pages for a command.
+Syntax:
+man [command]
+Example execution:
+man ls
+
+i) getpid: The getpid command in UNIX is used to get the process ID of the current process. It is typically used in shell scripting. Syntax:
+getpid
+Example execution:
+getpid
+
+ii) close: The close command in UNIX is used to close a file descriptor. It is typically used in shell scripting.
+Syntax:
+close [file_descriptor]
+Example execution:
+close 3
+
+ii) stat: The stat command in UNIX is used to display detailed file or file system status. Syntax:
+stat [file]
+Example execution:
+stat filename.txt
+
+
+
