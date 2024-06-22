@@ -4,27 +4,70 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>File Sharing App</title>
-    <link rel="stylesheet" href="style.css">
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
+    <style>
+        .toastify-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 20px;
+        }
+    </style>
 </head>
-<body>
-    <h1>File Sharing App</h1>
-    <form id="uploadForm" action="/upload" method="post" enctype="multipart/form-data">
-        <input type="file" name="file" required >
-        <button type="submit">Upload File</button>
-    </form>
-    <div id="downloadLinkContainer"></div>
+<body class="flex flex-col items-center justify-center min-h-screen bg-gray-100 px-4 md:px-6">
+    <div class="max-w-2xl w-full space-y-8">
+        <div class="text-center space-y-4">
+            <h1 class="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl">File Sharing App</h1>
+            <p class="text-gray-600 md:text-xl">
+                Easily and securely share files with anyone, anywhere. Generate a unique PIN to provide access to your shared files.
+            </p>
+        </div>
+        <div class="bg-white rounded-lg shadow-lg p-6">
+            <!-- Updated action URL here -->
+            <form id="uploadForm" action="/uploads" method="post" enctype="multipart/form-data" class="flex flex-col items-center space-y-4">
+                <div class="flex h-32 w-full items-center justify-center rounded-lg border-2 border-dashed border-gray-300 bg-gray-50 transition-colors hover:border-gray-500 hover:bg-gray-100">
+                    <label for="fileInput" class="cursor-pointer flex flex-col items-center justify-center">
+                        <svg class="w-12 h-12 text-gray-400" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 15v4a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-4M7 10l5-5m0 0l5 5m-5-5v12"/>
+                        </svg>
+                        <span class="mt-2 text-sm text-gray-800">Click to upload</span>
+                    </label>
+                    <!-- Name attribute is crucial here -->
+                    <input type="file" id="fileInput" name="file" class="hidden" required>
+                </div>
+                <button type="submit" class="bg-gray-800 text-white py-2 px-4 rounded hover:bg-gray-700 w-full max-w-sm">Upload File</button>
+            </form>            
+            <div id="downloadLinkContainer" class="flex flex-col items-center justify-center space-y-4 mt-4"></div>
+        </div>
+        <div class="bg-white rounded-lg shadow-lg p-6">
+            <form id="downloadForm" class="flex flex-col items-center space-y-4">
+                <input type="text" id="pinInput" placeholder="Enter pin" class="w-full max-w-sm px-4 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-gray-500 focus:border-transparent" required>
+                <button type="submit" id="downloadBtn" class="bg-gray-800 text-white py-2 px-4 rounded hover:bg-gray-700 w-full max-w-sm">Download File</button>
+            </form>
+        </div>
+    </div>
 
-    <form id="downloadForm">
-        <input type="text" id="pinInput" placeholder="Enter pin" required>
-        <button type="submit" id="downloadBtn">Download File</button>
-    </form>
-
+    <script src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
     <script>
         const Download_URL = window.location.href;
+
         document.getElementById('uploadForm').addEventListener('submit', function(event) {
             event.preventDefault();
+            const fileInput = document.getElementById('fileInput');
+            if (!fileInput.files.length) {
+                Toastify({
+                    text: "No file selected. Please choose a file to upload.",
+                    style: { background: "linear-gradient(to right, #ff5f6d, #ffc371)" },
+                    className: "toastify-container",
+                    duration: 3000
+                }).showToast();
+                return;
+            }
+
             const formData = new FormData(this);
-            fetch('/upload', {
+            fetch('/uploads', {
                 method: 'POST',
                 body: formData
             })
@@ -32,55 +75,64 @@
                 const contentType = response.headers.get('content-type');
                 if (!response.ok) {
                     if (contentType && contentType.includes('application/json')) {
-                        // If the response is JSON, parse it to get the error message
                         return response.json().then(errData => {
                             throw new Error(errData.message || 'Network response was not ok');
                         });
                     } else {
-                        // If the response is not JSON, throw a generic error
-                        throw new Error('Network response was not ok and not JSON');
+                        throw new Error('An error occurred while uploading the file.');
                     }
                 }
-                // If the response is ok, parse it as JSON
                 return response.json();
             })
             .then(data => {
                 if (data.success) {
-                    // Use the pin instead of fileId to create the download link
                     const downloadLink = Download_URL + data.pin;
                     const linkContainer = document.getElementById('downloadLinkContainer');
-                    linkContainer.innerHTML = `In You Browser Type Along With Domain as : /<a href="${downloadLink}" target="_blank">${data.pin}</a>`;
+                    linkContainer.innerHTML = `File uploaded successfully! Take your pin: ${data.pin}`;
                 } else {
-                    alert('File upload failed.');
+                    Toastify({
+                        text: "File upload failed.",
+                        style: { background: "linear-gradient(to right, #ff5f6d, #ffc371)" },
+                        className: "toastify-container",
+                        duration: 3000
+                    }).showToast();
                 }
             })
             .catch(error => {
                 console.error('Error:', error);
-                alert(error.message || 'An error occurred while uploading the file.');
+                Toastify({
+                    text: error.message || 'An error occurred while uploading the file.',
+                    style: { background: "linear-gradient(to right, #ff5f6d, #ffc371)" },
+                    className: "toastify-container",
+                    duration: 3000
+                }).showToast();
             });
         });
 
-        // Add event listener for clicking the "Download" button
         document.getElementById('downloadBtn').addEventListener('click', function(event) {
             event.preventDefault();
             initiateDownload();
         });
-        // Add event listener for pressing the "Enter" key
+
         document.getElementById('pinInput').addEventListener('keydown', function(event) {
             if (event.key === 'Enter') {
                 event.preventDefault();
                 initiateDownload();
             }
         });
-        
-        // Function to initiate the download action
+
         function initiateDownload() {
             const pin = document.getElementById('pinInput').value;
             if (!pin) {
-                alert('Please enter a pin.');
+                Toastify({
+                    text: "Please enter a pin.",
+                    style: { background: "linear-gradient(to bottom right, #74ebd5, #ACB6E5)" },
+                    className: "toastify-container",
+                    duration: 3000
+                }).showToast();
                 return;
             }
-            window.location.href = '/' + pin; // Adjusted to work with relative URL
+            window.location.href = '/' + pin;
         }
     </script>
 </body>

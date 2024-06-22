@@ -1,44 +1,199 @@
-        body {
-            font-family: 'Arial', sans-serif;
-            background-color: #333; /* Dark background */
-            color: #fff; /* White text color */
-            text-align: center;
-            padding-top: 50px;
-        }
-        h1 {
-            color: #ffa500; /* Orange color for the heading */
-        }
-        form {
-            margin: 20px auto;
-            background-color: #444; /* Slightly lighter background for the form */
-            padding: 20px;
-            border-radius: 8px;
-            display: inline-block;
-        }
-        input[type="file"] {
-            color: #fff;
-        }
-        button {
-            background-color: #ffa500; /* Orange background for the button */
-            color: #fff; /* White text color for the button */
-            border: none;
-            padding: 10px 20px;
-            margin-top: 10px;
-            border-radius: 5px;
-            cursor: pointer;
-            transition: background-color 0.3s ease;
-        }
-        button:hover {
-            background-color: #e69500; /* Darker orange on hover */
-        }
-        #downloadLinkContainer {
-            margin-top: 20px;
-        }
-        a {
-            color: #ffa500; /* Orange color for the link */
-            text-decoration: none;
-            font-weight: bold;
-        }
-        a:hover {
-            text-decoration: underline;
-        }
+/* General Flexbox Layout */
+.flex {
+    display: flex;
+  }
+  .flex-col {
+    flex-direction: column;
+  }
+  .items-center {
+    align-items: center;
+  }
+  .justify-center {
+    justify-content: center;
+  }
+  .min-h-[vh] {
+    min-height: 100vh;
+  }
+  .space-y-4 > :not(:last-child) {
+    margin-bottom: 1rem; /* Adjust spacing as needed */
+  }
+  .space-y-6 > :not(:last-child) {
+    margin-bottom: 1.5rem; /* Adjust spacing as needed */
+  }
+  .space-y-8 > :not(:last-child) {
+    margin-bottom: 2rem; /* Adjust spacing as needed */
+  }
+  
+  /* Background Colors */
+  .bg-background {
+    background-color: #2c3e50; /* Example background color */
+  }
+  .bg-muted {
+    background-color: #34495e; /* Example muted color */
+  }
+  .bg-muted-foreground\/5 {
+    background-color: rgba(236, 240, 241, 0.05); /* 5% opacity */
+  }
+  
+  /* Text Colors */
+  .text-muted-foreground {
+    color: #7f8c8d; /* Example muted foreground color */
+  }
+  .text-3xl {
+    font-size: 1.875rem; /* Adjust font size as needed */
+  }
+  .text-4xl {
+    font-size: 2.25rem; /* Adjust font size as needed */
+  }
+  .text-5xl {
+    font-size: 3rem; /* Adjust font size as needed */
+  }
+  .font-bold {
+    font-weight: 700;
+  }
+  .font-medium {
+    font-weight: 500;
+  }
+  .tracking-tighter {
+    letter-spacing: -0.05em; /* Adjust letter spacing as needed */
+  }
+  
+  /* Padding and Margin */
+  .px-4 {
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
+  .md\:px-6 {
+    padding-left: 1.5rem;
+    padding-right: 1.5rem;
+  }
+  .p-6 {
+    padding: 1.5rem;
+  }
+  
+  /* Width and Max Width */
+  .max-w-2xl {
+    max-width: 42rem;
+  }
+  .w-full {
+    width: 100%;
+  }
+  .w-12 {
+    width: 3rem;
+  }
+  .h-12 {
+    height: 3rem;
+  }
+  .h-8 {
+    height: 2rem;
+  }
+  .w-8 {
+    width: 2rem;
+  }
+  .max-w-sm {
+    max-width: 24rem;
+  }
+  
+  /* Borders */
+  .border-0 {
+    border: none;
+  }
+  .border-2 {
+    border-width: 2px;
+  }
+  .border-dashed {
+    border-style: dashed;
+  }
+  .border-input {
+    border-color: #bdc3c7; /* Example input border color */
+  }
+  .rounded-lg {
+    border-radius: 0.5rem;
+  }
+  .shadow-lg {
+    box-shadow: 0 10px 15px rgba(0, 0, 0, 0.1); /* Adjust shadow as needed */
+  }
+  
+  /* Transition */
+  .transition-colors {
+    transition-property: color, background-color;
+    transition-duration: 150ms;
+  }
+  .hover\:border-primary:hover {
+    border-color: #3498db; /* Example primary color */
+  }
+  .hover\:bg-muted-foreground\/5:hover {
+    background-color: rgba(236, 240, 241, 0.05); /* 5% opacity */
+  }
+  
+  /* Custom Button Variants */
+  button.variant-outline {
+    background-color: transparent;
+    border: 2px solid #ffa500; /* Example outline button color */
+    color: #ffa500; /* Example outline button text color */
+  }
+  button.variant-outline:hover {
+    background-color: #ffa500; /* Example hover background color */
+    color: #fff; /* Example hover text color */
+  }
+  button.variant-ghost {
+    background-color: transparent;
+    border: none;
+    color: #ffa500; /* Example ghost button text color */
+  }
+  button.variant-ghost:hover {
+    background-color: rgba(255, 165, 0, 0.1); /* 10% opacity */
+  }
+  button.size-icon {
+    padding: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  button.size-icon.h-12 {
+    height: 3rem;
+    width: 3rem;
+  }
+  button.size-icon.h-8 {
+    height: 2rem;
+    width: 2rem;
+  }
+  button.w-full {
+    width: 100%;
+  }
+  button.max-w-sm {
+    max-width: 24rem;
+  }
+  
+  /* Card Styles */
+  .card {
+    background-color: #fff; /* Example card background color */
+    border-radius: 0.5rem;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Example shadow */
+    overflow: hidden;
+  }
+  .card-content {
+    padding: 1.5rem; /* Adjust padding as needed */
+  }
+  
+  /* Input Styles */
+  .input {
+    width: 100%;
+    padding: 0.75rem;
+    border-radius: 0.25rem;
+    border: 1px solid #bdc3c7; /* Example input border color */
+    background-color: #ecf0f1; /* Example input background color */
+    color: #2c3e50; /* Example input text color */
+    font-size: 1rem;
+  }
+  
+  /* Icons */
+  .svg-icon {
+    width: 24px;
+    height: 24px;
+    stroke: currentColor;
+    stroke-width: 2;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+  }
+  
